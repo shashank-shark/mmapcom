@@ -1,4 +1,4 @@
-package com.shashankj;
+package com.mmapcom;
 
 import static org.junit.Assert.assertTrue;
 

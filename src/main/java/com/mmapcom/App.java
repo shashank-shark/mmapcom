@@ -1,4 +1,4 @@
-package com.shashankj;
+package com.mmapcom;
 
 public class App {
     public static void main( String[] args ) {
