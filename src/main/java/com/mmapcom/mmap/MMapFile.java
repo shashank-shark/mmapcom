@@ -1,5 +1,6 @@
-package examples;
+package com.mmapcom.mmap;
 
+import examples.ReflectionUtils;
 import sun.misc.Unsafe;
 import sun.nio.ch.FileChannelImpl;
 
@@ -8,7 +9,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.nio.channels.FileChannel;
 
-public class MemoryMappedFile {
+public class MMapFile {
 
     private static final String fileChannelImplMapperMethod = "map0";
     private static final String fileChannelImplUnMapperMethod = "unmap0";
@@ -43,7 +44,7 @@ public class MemoryMappedFile {
      * @param len total size of file that needs to be mapped.
      * @throws Exception exception thrown
      */
-    protected MemoryMappedFile(final String loc, long len) throws Exception {
+    protected MMapFile(final String loc, long len) throws Exception {
         this.loc = loc;
         this.size = roundTo4096(len);
         mapAndSetOffset();
@@ -90,9 +91,9 @@ public class MemoryMappedFile {
     }
 
     /**
-     * To access first 8 bytes.
-     * @param pos
-     * @return
+     * To access first 8 bytes (volatile).
+     * @param pos the position in the memory mapped file
+     * @return byte
      */
     protected byte getByteVolatile(long pos) {
         return unsafe.getByteVolatile(null, pos + addr);
@@ -100,17 +101,17 @@ public class MemoryMappedFile {
 
     /**
      * To access first 8 bytes.
-     * @param pos
-     * @return
+     * @param pos the position in the memory mapped file
+     * @return int
      */
     public int getInt(long pos) {
         return unsafe.getInt(pos + addr);
     }
 
     /**
-     * To access first 8 bytes.
-     * @param pos
-     * @return
+     * To access first 8 bytes (volatile).
+     * @param pos the position in the memory mapped file
+     * @return int
      */
     protected int getIntVolatile(long pos) {
         return unsafe.getIntVolatile(null, pos + addr);
@@ -118,8 +119,8 @@ public class MemoryMappedFile {
 
     /**
      * To access first 8 bytes.
-     * @param pos
-     * @return
+     * @param pos the position in the memory mapped file
+     * @return long
      */
     public long getLong(long pos) {
         return unsafe.getLong(pos + addr);
